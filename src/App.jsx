@@ -1,24 +1,29 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Shared Layout & UI
+// Shared Layout Components
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import FloatingLogo from './components/layout/FloatingLogo';
 import FloatingLogin from './components/layout/FloatingLogin';
+
+
+import BlogPage from './components/blog/BlogPage';             // <-- Add this
+import AcmNitkBlogPage from './components/blog/AcmNitkBlogPage';
+
+// UI and Home Components
 import Hero from './components/ui/Hero';
-import OrbitShowcase from './components/ui/OrbitShowcase'; // <-- Imported the new Orbit UI
+import OrbitShowcase from './components/ui/OrbitShowcase';
+import About from './components/home/About';
 
 // Page Components
-import About from './components/home/About';
-import DocumentViewer from './components/documents/DocumentViewer';
+import DocumentPage from './components/documents/DocumentPage';
+import EventsPage from './components/events/EventsPage';
 
 // --- DATA ARRAYS ---
-const yantras = ["Sanganitra", "Karyavarta", "Vidyut", "Yantrika", "Sahitya", "Abhivyakta", "Krutagnata"];
-const techStack = ["React", "Tailwind CSS", "Framer Motion", "Node.js", "MongoDB", "Vite", "Figma", "AWS"];
+const yantras = ["Sanganitra", "Karyavarta", "Vidyut", "Yantrika", "Sahiitya", "Abhivyakta", "Krutagnata"];
 
-// --- PAGE WRAPPERS ---
-
+// --- HOME PAGE WRAPPER ---
 function HomePage() {
   return (
     <main className="flex-grow w-full">
@@ -34,46 +39,14 @@ function HomePage() {
           <span className="text-3xl md:text-4xl lg:text-5xl font-semibold text-brand-navy dark:text-white transition-colors duration-300 ml-2">-way</span>
         </div>
       </Hero>
-      
+
       <About />
-      
-      {/* Replaced Parallax with Orbit */}
       <OrbitShowcase title="Our Yantras" items={yantras} />
     </main>
   );
 }
 
-function DocumentPage() {
-  const dummyProject = {
-    title: "Sanganitra Phase 1",
-    thumbnail: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2000&auto=format&fit=crop",
-    mentors: "Dr. Smith, Prof. Johnson",
-    members: "Alice (Lead), Bob (Backend), Charlie (UI/UX)",
-    duration: "6",
-    introduction: "This proposal outlines the architecture and execution plan for Sanganitra Phase 1...",
-  };
-
-  return (
-    <main className="flex-grow w-full">
-      <Hero>
-        <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-brand-navy dark:text-white mb-2 transition-colors duration-300">
-          Explore our
-        </span>
-        <span className="text-5xl md:text-7xl lg:text-8xl font-black text-brand-blue drop-shadow-[0_0_30px_rgba(108,180,238,0.3)] dark:drop-shadow-[0_0_30px_rgba(108,180,238,0.6)]">
-          Documents
-        </span>
-      </Hero>
-
-      {/* Replaced Parallax with Orbit */}
-      <OrbitShowcase title="Powered By" items={techStack} />
-
-      <DocumentViewer project={dummyProject} />
-    </main>
-  );
-}
-
 // --- MAIN APP ---
-
 function App() {
   const [darkMode, setDarkMode] = useState(true);
 
@@ -88,15 +61,22 @@ function App() {
   return (
     <Router>
       <div className="relative min-h-screen flex flex-col w-full overflow-x-hidden bg-white dark:bg-black transition-colors duration-300">
+
+        {/* Global Nav & UI */}
         <FloatingLogo />
         <FloatingLogin />
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        
+
+        {/* Page Routes */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/documents" element={<DocumentPage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/blog" element={<BlogPage />} />             {/* Main hub */}
+          <Route path="/blog/acm-nitk" element={<AcmNitkBlogPage />} /> {/* Local blog */}
         </Routes>
 
+        {/* Global Footer */}
         <Footer />
       </div>
     </Router>
