@@ -7,7 +7,8 @@ const yantras = ["Sanganitra", "Karyavarta", "Vidyut", "Yantrika", "Sahiitya", "
 // Updated navLinks to map names to actual routes
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Documents", path: "/documents" },
+  { name: "Project Proposal", path: "/project-proposal" },
+  { name: "Project Expo", path: "/project-expo" },
   { name: "Events", path: "/events" },
   { name: "Blog", path: "/blog" },
   { name: "Teams", path: "/teams" }
